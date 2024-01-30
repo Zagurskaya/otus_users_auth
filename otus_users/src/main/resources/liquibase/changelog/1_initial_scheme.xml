@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <changeSet id="1" author="zagurskaya">
+        <createTable tableName="user" remarks="Пользователи">
+            <column name="id" type="bigint" autoIncrement="true" remarks="Идентификатор">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(100)" remarks="Наименование">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(250)" remarks="Пароль">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(100)" remarks="Фамилия">
+                <constraints nullable="true"/>
+            </column>
+            <column name="lastname" type="varchar(100)" remarks="Имя">
+                <constraints nullable="true"/>
+            </column>
+            <column name="email" type="varchar(100)" remarks="email">
+                <constraints nullable="true"/>
+            </column>
+            <column name="phone" type="varchar(100)" remarks="Телефон">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="zagurskaya">
+        <sqlFile path="liquibase/changelog/sql/1_initial_data.sql"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+  labels:
+    app: {{ .Values.app.name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+#      serviceAccountName: user-app-service-account
+      containers:
+        - name: {{ .Values.app.name }}
+          image: {{ .Values.app.image }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.app.secretName }}
+            - configMapRef:
+                name: {{ .Values.app.configmapName }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: {{ .Values.app.portNumber }}
+          resources:
+            limits:
+              cpu: {{ .Values.app.resources.limits.cpu }}
+              memory: {{ .Values.app.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.app.resources.requests.cpu }}
+              memory: {{ .Values.app.resources.requests.memory }}

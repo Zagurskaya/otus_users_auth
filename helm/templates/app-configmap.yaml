@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.configmapName }}
+data:
+  OTUS_DB_HOST: {{ .Values.postgresql.fullnameOverride }}
+  OTUS_DB_NAME: {{ .Values.postgresql.postgresqlDatabase }}
+  OTUS_DB_PORT: {{ .Values.db.port | quote }}
+  OTUS_APP_PORT: {{ .Values.app.portNumber | quote }}
+  OTUS_DB_USERNAME: {{ .Values.postgresql.postgresqlUsername }}

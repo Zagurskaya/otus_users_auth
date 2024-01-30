@@ -1,0 +1,38 @@
+jwt:
+  secret: 0d9g30g3sd09t
+  version: 1
+
+server:
+#  port: ${OTUS_APP_PORT:8090}
+  port: 8090
+#  port: ${OTUS_APP_PORT}
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    context-path: /auth
+spring:
+  jpa:
+    show-sql: ${SHOW_SQL:false}
+    database-platform: "org.hibernate.dialect.PostgreSQLDialect"
+  datasource:
+#    url: jdbc:postgresql://${OTUS_DB_HOST:localhost}:${OTUS_DB_PORT:5432}/${OTUS_DB_NAME:users}
+#    username: ${OTUS_DB_USERNAME:erp}
+#    password: ${OTUS_DB_PASSWORD:erp}
+    url: jdbc:postgresql://${OTUS_DB_HOST}:${OTUS_DB_PORT}/${OTUS_DB_NAME}
+    username: ${OTUS_DB_USERNAME}
+    password: ${OTUS_DB_PASSWORD}
+    driver-class-name: "org.postgresql.Driver"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
